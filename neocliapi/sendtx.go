@@ -41,8 +41,10 @@ func SendRawTransaction(url string, rawtx string) bool {
 
 	result, ok := ret[`result`].(bool)
 	if !ok {
-		log.Println("Try sendRawTransaction result not a bool")
-		return false
+		err, ok := ret["error"].(map[string]interface{})
+		if ok {
+			log.Println("sendRawTransaction response, error: ", err["message"])
+		}		return false
 	}
 
 	//log.Println("Try sendRawTransaction", string(buff))

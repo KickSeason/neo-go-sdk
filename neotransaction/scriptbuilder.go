@@ -7,8 +7,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/x-contract/neo-go-sdk/neotransaction/OpCode"
-	"github.com/x-contract/neo-go-sdk/neoutils"
+	"github.com/KickSeason/neo-go-sdk/neotransaction/OpCode"
+	"github.com/KickSeason/neo-go-sdk/neoutils"
 )
 
 // ScriptBuilder NEO 智能合约脚本构建器

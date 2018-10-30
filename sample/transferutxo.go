@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/x-contract/neo-go-sdk/neocliapi"
-	"github.com/x-contract/neo-go-sdk/neoextapi"
-	"github.com/x-contract/neo-go-sdk/neotransaction"
+	"github.com/KickSeason/neo-go-sdk/neocliapi"
+	"github.com/KickSeason/neo-go-sdk/neoextapi"
+	"github.com/KickSeason/neo-go-sdk/neotransaction"
 )
 
 var (

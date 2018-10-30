@@ -3,7 +3,7 @@ package neotransaction
 import (
 	"errors"
 
-	"github.com/x-contract/neo-go-sdk/neoutils"
+	"github.com/KickSeason/neo-go-sdk/neoutils"
 )
 
 // AddressVersion 地址版本号

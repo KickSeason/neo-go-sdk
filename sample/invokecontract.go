@@ -3,59 +3,52 @@ package main
 import (
 	"encoding/hex"
 	"log"
-	"math/rand"
-	"time"
 
-	"github.com/x-contract/neo-go-sdk/neocliapi"
-
-	"github.com/x-contract/neo-go-sdk/neotransaction"
-	"github.com/x-contract/neo-go-sdk/neotransaction/OpCode"
+	"github.com/KickSeason/neo-go-sdk/neocliapi"
+	"github.com/KickSeason/neo-go-sdk/neotransaction"
 )
 
 var (
-	contractHashString = `dc675afc61a7c0f7b3d2682bf6e1d8ed865a0e5f`
+	contractHashString = `9e04d7fddc770cb422b2781c6d84771d4d34cd7a`
+	addrReceiverString = "AUpVUWUjP15zXk6MAB4uhYRYJpXnyphxtp"
+	neorpcurl          = "http://47.98.227.225:50332"
 )
 
-// InvokeContract 调用一个智能合约的 BalanceOf 接口
+// InvokeContract 调用一个智能合约的 transfer 接口
 func InvokeContract() {
 
 	contractHash, _ := hex.DecodeString(contractHashString)
 
 	// The key used to sign the transaction if needed
-	//key, _ := neotransaction.DecodeFromWif("Your Private Key's WIF")
-	//addr := key.CreateBasicAddress()
-
+	key, _ := neotransaction.DecodeFromWif("L3MgmkFsvU5WUL8bJhUeDYFzbvHkPEJTybNxwecJU6yX8oks42V4")
+	addr := key.CreateBasicAddress()
+	addrReceiver, _ := neotransaction.ParseAddress(addrReceiverString)
 	// 创建一个 Invocation 交易
 	tx := neotransaction.CreateInvocationTransaction()
 
 	extra := tx.ExtraData.(*neotransaction.InvocationExtraData)
-	sb := neotransaction.ScriptBuilder{}
 
-	// If you want to make an invocation transaction without utxo transferd
-	// then you need to push a random number so that the hash(txid) could vary on each transaction
-	rand.Seed(time.Now().UnixNano())
-	sb.EmitPushNumber(int64(rand.Uint32()))
-	sb.Emit(OpCode.DROP)
-
-	//args := []interface{}{205, addr.ScripHash}
-	//sb.EmitPushArray(args)
-	sb.EmitPushBool(false)
-	sb.EmitPushString(`name`)
-	sb.EmitAppCall(contractHash)
-
-	extra.Script = sb.Bytes()
+	args := []interface{}{
+		addr.ScripHash,
+		addrReceiver.ScripHash,
+		1,
+	}
+	bytes, err := neotransaction.BuildCallMethodScript(contractHash, "transfer", args, true)
+	if err != nil {
+		log.Println(err)
+	}
+	extra.Script = bytes
 
 	// If the transaction need additional Witness then put the ScriptHash in attributes
-	//tx.AppendAttribute(neotransaction.UsageScript, addr.ScripHash)
+	tx.AppendAttribute(neotransaction.UsageScript, addr.ScripHash)
 
 	// Perhaps the transaction need Witness
-	//tx.AppendBasicSignWitness(key)
+	tx.AppendBasicSignWitness(key)
 
 	log.Printf(`Generate invocation transaction[%s]`, tx.TXID())
-	log.Printf(`  transaction content:`)
 	rawtx := tx.RawTransactionString()
-	log.Printf(rawtx)
+	log.Println("transaction content: ", rawtx)
 
-	result := neocliapi.SendRawTransaction(neocliurl, rawtx)
+	result := neocliapi.SendRawTransaction(neorpcurl, rawtx)
 	log.Printf(`Send transaction to neo-cli node result[%v]`, result)
 }

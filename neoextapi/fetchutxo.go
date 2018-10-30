@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/x-contract/neo-go-sdk/neoutils"
+	"github.com/KickSeason/neo-go-sdk/neoutils"
 
-	"github.com/x-contract/neo-go-sdk/neotransaction"
+	"github.com/KickSeason/neo-go-sdk/neotransaction"
 )
 
 ///////////////////////////////////////////////////////////////////////////

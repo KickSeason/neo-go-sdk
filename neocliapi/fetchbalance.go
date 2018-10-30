@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/x-contract/neo-go-sdk/neotransaction"
+	"github.com/KickSeason/neo-go-sdk/neotransaction"
 )
 
 // NeoBalance 用户NEO账户余额

@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/x-contract/neo-go-sdk/neotransaction"
-	"github.com/x-contract/neo-go-sdk/neoutils"
+	"github.com/KickSeason/neo-go-sdk/neotransaction"
+	"github.com/KickSeason/neo-go-sdk/neoutils"
 )
 
 // Argument 调用智能合约的参数和智能合约返回值的参数类型
