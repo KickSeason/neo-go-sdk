@@ -1,6 +1,6 @@
 package neotransaction
 
-import "github.com/x-contract/neo-go-sdk/neoutils"
+import "github.com/KickSeason/neo-go-sdk/neoutils"
 
 // UTXO Neo交易中的未花费输出
 type UTXO struct {

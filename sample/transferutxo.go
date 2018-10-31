@@ -10,7 +10,7 @@ import (
 
 var (
 	neoextapiurl = `https://api.nel.group/api/testnet`
-	neocliurl    = `http://seed4.neo.org:20332`
+	neocliurl    = `http://47.98.227.225:50332`
 )
 
 // TransferUTXO UTXO资产转账交易
@@ -20,8 +20,8 @@ func TransferUTXO() {
 	// addr1 will transfer GAS to addr2
 	// and addr2 will transfer NEO to addr1 within the same transaction
 	// Put your own private-keys WIF string here to test
-	key1, _ := neotransaction.DecodeFromWif("WIF of Private-Key 1")
-	key2, _ := neotransaction.DecodeFromWif("WIF of Private-Key 2")
+	key1, _ := neotransaction.DecodeFromWif("L3MgmkFsvU5WUL8bJhUeDYFzbvHkPEJTybNxwecJU6yX8oks42V4")
+	key2, _ := neotransaction.DecodeFromWif("L5aPwWKUNvhcKE6jdZLsPxBJmyD3G6TnCjudUoUM3a72v99HgJqR")
 
 	addr1 := key1.CreateBasicAddress()
 	addr2 := key2.CreateBasicAddress()
